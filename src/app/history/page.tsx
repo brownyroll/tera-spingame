@@ -143,7 +143,7 @@ export default function HistoryPage() {
           onClick={exportToCSV}
           disabled={filteredHistory.length === 0}
         >
-          ส่งออก CSV
+          Export To CSV
         </Button>
       </Box>
 
