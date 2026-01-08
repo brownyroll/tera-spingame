@@ -1,36 +1,70 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+## 🎯 Project: Spin Game Random
+Create By: ▲ Next.js 15.4.1 (Turbopack)
 
-## Getting Started
+Design: Brownyrollz (brownyroll)
 
-First, run the development server:
+## 🚀 Features
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+🎡 Spin Wheel Animation – Randomized spin with smooth physics.
+
+🎉 Confetti Celebration – Triggered on winning spins.
+
+🔐 Environment Config – Managed via dotenv.
+
+🗄️ Database Integration – Powered by Prisma ORM.
+
+🖌️ Modern UI – Built with Material UI and React Icons.
+
+## Images
+
+![This is an alt text.](https://i.pinimg.com/originals/81/3a/c0/813ac0f20c42106b61ce13cdebb7fecd.gif "merry crismas")
+
+
+## Library
+
+|   Name      |     Version  |
+| ----------------- |:-------------:|
+| sweetalert2       | 11.26.17      |
+| spin-wheel        | 5.0.2         |
+| dotenv            | 17.2.3        |
+| prisma            | 6.19.1        |  
+| canvas-confetti   | 1.9.4         | 
+| mui/materia       | 7.3.7         | 
+| react/icons       | 5.5.0         | 
+
+
+# Clone the repository
+```
+git clone [<Tera SpinGame>](https://github.com/brownyroll/tera-spingame)
+```
+# Navigate to project folder
+```
+cd tera-spingame
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+# Install dependencies
+```
+npm install
+```
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+# Setup environment variables
+```
+cp .env.example .env
+```
+# Setup Database
+```
+npx prisma generate && prisma migrate dev
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+# Run development server
+```
+npm run dev
+```
+# Run Build 
+```
+npm run build
+```
+# Start Affter Build Project
+```
+npm run start
+```
