@@ -1,0 +1,41 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url = "file:./prisma/dev.db"
+  // url      = env("DATABASE_URL")
+}
+
+model Item {
+  id        Int       @id @default(autoincrement())
+  name      String
+  color     String    @default("#3498db")
+  image     String?
+  isActive  Boolean   @default(true)
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  histories History[]
+}
+
+model Participant {
+  id        Int       @id @default(autoincrement())
+  name      String
+  isActive  Boolean   @default(true)
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  histories History[]
+}
+
+model History {
+  id            Int         @id @default(autoincrement())
+  itemId        Int
+  participantId Int
+  item          Item        @relation(fields: [itemId], references: [id])
+  participant   Participant @relation(fields: [participantId], references: [id])
+  wonAt         DateTime    @default(now())
+}
