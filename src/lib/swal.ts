@@ -90,3 +90,15 @@ export const showConfirmDelete = async (itemName: string) => {
     cancelButtonColor: "#9e9e9e",
   });
 };
+
+export const showSuccessAlert = async (message: string) => {
+  return MySwal.fire({
+    title: "สำเร็จ",
+    text: message,
+    icon: "success",
+    confirmButtonText: "ตกลง",
+    confirmButtonColor: "#4caf50",
+    timer: 2000,
+    timerProgressBar: true,
+  });
+};

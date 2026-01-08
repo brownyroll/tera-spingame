@@ -3,6 +3,8 @@ import { Prompt } from "next/font/google";
 import "./globals.css";
 import ThemeRegistry from "@/theme/ThemeRegistry";
 import Navbar from "@/components/Navbar";
+import SnowEffect from "@/components/SnowEffect";
+
 import { Box } from "@mui/material";
 
 const prompt = Prompt({
@@ -25,6 +27,7 @@ export default function RootLayout({
     <html lang="th">
       <body className={prompt.className}>
         <ThemeRegistry>
+          <SnowEffect />
           <Box
             sx={{
               display: "flex",
