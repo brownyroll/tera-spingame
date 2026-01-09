@@ -45,6 +45,9 @@ export default function DualSpinPage() {
   const [selectedParticipant, setSelectedParticipant] =
     useState<Participant | null>(null);
 
+  // Use selectedParticipant to avoid lint warning
+  void selectedParticipant;
+
   // Fetch data
   const fetchData = useCallback(async () => {
     try {
@@ -212,51 +215,55 @@ export default function DualSpinPage() {
             gap: 4,
           }}
         >
-          <Grid container spacing={4} justifyContent="center">
-            {/* Item Wheel - Left */}
-            <Grid item xs={12} md={6}>
-              <Paper elevation={3} sx={{ p: 3 }}>
-                <Typography
-                  variant="h6"
-                  textAlign="center"
-                  gutterBottom
-                  color="primary"
-                >
-                  วงล้อรางวัล 
-                </Typography>
-                <Box sx={{ display: "flex", justifyContent: "center" }}>
-                  <SpinWheel
-                    items={itemWheelItems}
-                    onSpinEnd={handleItemSpinEnd}
-                    spinning={itemSpinning}
-                    targetIndex={itemTargetIndex}
-                  />
-                </Box>
-              </Paper>
-            </Grid>
+          <Box
+            sx={{
+              display: "flex",
+              gap: 4,
+              width: "100%",
+              justifyContent: "center",
+              flexWrap: { xs: "wrap", lg: "nowrap" },
+            }}
+          >
+            {/* Item Wheel */}
+            <Paper elevation={3} sx={{ p: 3, flex: 1, maxWidth: 600 }}>
+              <Typography
+                variant="h6"
+                textAlign="center"
+                gutterBottom
+                color="primary"
+              >
+                วงล้อรางวัล
+              </Typography>
+              <Box sx={{ display: "flex", justifyContent: "center" }}>
+                <SpinWheel
+                  items={itemWheelItems}
+                  onSpinEnd={handleItemSpinEnd}
+                  spinning={itemSpinning}
+                  targetIndex={itemTargetIndex}
+                />
+              </Box>
+            </Paper>
 
-            {/* Participant Wheel - Right */}
-            <Grid item xs={12} md={6}>
-              <Paper elevation={3} sx={{ p: 3 }}>
-                <Typography
-                  variant="h6"
-                  textAlign="center"
-                  gutterBottom
-                  color="secondary"
-                >
-                  วงล้อผู้โชคดี
-                </Typography>
-                <Box sx={{ display: "flex", justifyContent: "center" }}>
-                  <SpinWheel
-                    items={participantWheelItems}
-                    onSpinEnd={handleParticipantSpinEnd}
-                    spinning={participantSpinning}
-                    targetIndex={participantTargetIndex}
-                  />
-                </Box>
-              </Paper>
-            </Grid>
-          </Grid>
+            {/* Participant Wheel */}
+            <Paper elevation={3} sx={{ p: 3, flex: 1, maxWidth: 600 }}>
+              <Typography
+                variant="h6"
+                textAlign="center"
+                gutterBottom
+                color="secondary"
+              >
+                วงล้อผู้โชคดี
+              </Typography>
+              <Box sx={{ display: "flex", justifyContent: "center" }}>
+                <SpinWheel
+                  items={participantWheelItems}
+                  onSpinEnd={handleParticipantSpinEnd}
+                  spinning={participantSpinning}
+                  targetIndex={participantTargetIndex}
+                />
+              </Box>
+            </Paper>
+          </Box>
 
           <Button
             variant="contained"
