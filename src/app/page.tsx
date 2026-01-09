@@ -98,7 +98,7 @@ export default function Home() {
       const wonItem = items[winningIndex];
       setSelectedItem(wonItem);
 
-      const result = await showItemWonAlert(wonItem.name);
+      const result = await showItemWonAlert(wonItem.name, wonItem.image);
 
       if (result.isConfirmed) {
         // Switch to participants wheel
@@ -124,7 +124,11 @@ export default function Home() {
         }
 
         // Show winner alert
-        await showWinnerAlert(winner.name, selectedItem.name);
+        await showWinnerAlert(
+          winner.name,
+          selectedItem.name,
+          selectedItem.image,
+        );
 
         // Reset state
         setSelectedItem(null);
@@ -165,7 +169,7 @@ export default function Home() {
           <Typography color="text.secondary" gutterBottom>
             {wheelMode === "items"
               ? "🎁🎁🎁 ของรางวัลหมดแล้ว ขอบคุณที่ร่วมสนุกน๊าา Happy New Year 2026 🎉🎉🎉"
-              : "🤵🤵🤵 ยังไม่มีผู้เข้าร่วม กรุณาเพิ่มผู้เข้าร่วมก่อน"}
+              : "ผู้เข้าร่วมหมดแล้ว"}
           </Typography>
           <Button
             variant="contained"

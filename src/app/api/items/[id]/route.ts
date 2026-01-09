@@ -1,5 +1,5 @@
-import { NextRequest, NextResponse } from 'next/server';
-import { prisma } from '@/lib/prisma';
+import { NextRequest, NextResponse } from "next/server";
+import { prisma } from "@/lib/prisma";
 
 interface Params {
   params: Promise<{ id: string }>;
@@ -14,18 +14,23 @@ export async function GET(request: NextRequest, { params }: Params) {
     });
 
     if (!item) {
-      return NextResponse.json(
-        { error: 'Item not found' },
-        { status: 404 }
-      );
+      return NextResponse.json({ error: "Item not found" }, { status: 404 });
     }
 
-    return NextResponse.json(item);
+    // Convert image buffer to base64 data URL
+    const itemWithImage = {
+      ...item,
+      image: item.image
+        ? `data:image/png;base64,${Buffer.from(item.image).toString("base64")}`
+        : null,
+    };
+
+    return NextResponse.json(itemWithImage);
   } catch (error) {
-    console.error('Error fetching item:', error);
+    console.error("Error fetching item:", error);
     return NextResponse.json(
-      { error: 'Failed to fetch item' },
-      { status: 500 }
+      { error: "Failed to fetch item" },
+      { status: 500 },
     );
   }
 }
@@ -37,22 +42,33 @@ export async function PUT(request: NextRequest, { params }: Params) {
     const body = await request.json();
     const { name, color, image, isActive } = body;
 
+    // Convert base64 to buffer if image exists
+    let imageBuffer = undefined;
+    if (image !== undefined) {
+      if (image === null) {
+        imageBuffer = null;
+      } else if (image.startsWith("data:image")) {
+        const base64Data = image.split(",")[1];
+        imageBuffer = Buffer.from(base64Data, "base64");
+      }
+    }
+
     const item = await prisma.item.update({
       where: { id: parseInt(id) },
       data: {
         ...(name !== undefined && { name: name.trim() }),
         ...(color !== undefined && { color }),
-        ...(image !== undefined && { image }),
+        ...(imageBuffer !== undefined && { image: imageBuffer }),
         ...(isActive !== undefined && { isActive }),
       },
     });
 
     return NextResponse.json(item);
   } catch (error) {
-    console.error('Error updating item:', error);
+    console.error("Error updating item:", error);
     return NextResponse.json(
-      { error: 'Failed to update item' },
-      { status: 500 }
+      { error: "Failed to update item" },
+      { status: 500 },
     );
   }
 }
@@ -67,10 +83,10 @@ export async function DELETE(request: NextRequest, { params }: Params) {
 
     return NextResponse.json({ success: true });
   } catch (error) {
-    console.error('Error deleting item:', error);
+    console.error("Error deleting item:", error);
     return NextResponse.json(
-      { error: 'Failed to delete item' },
-      { status: 500 }
+      { error: "Failed to delete item" },
+      { status: 500 },
     );
   }
 }

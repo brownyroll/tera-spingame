@@ -6,8 +6,17 @@ const MySwal = withReactContent(Swal);
 
 export default MySwal;
 
-export const showItemWonAlert = async (itemName: string) => {
+export const showItemWonAlert = async (
+  itemName: string,
+  itemImage?: string | null,
+) => {
   fireCelebration();
+
+  // Use item image if available, otherwise use default
+  const imageUrl =
+    itemImage && itemImage.startsWith("data:image")
+      ? itemImage
+      : "/img/ani-merry.gif";
 
   return MySwal.fire({
     title: "ของรางวัลที่ได้รับ",
@@ -17,9 +26,9 @@ export const showItemWonAlert = async (itemName: string) => {
       </div>
     `,
     // icon: "success",
-    imageUrl: "/img/ani-merry.gif",
-    imageWidth: 450,
-    imageHeight: 250,
+    imageUrl: imageUrl,
+    imageWidth: 300,
+    imageHeight: 200,
     confirmButtonText: "🎅 สุ่มผู้โชคดี",
     confirmButtonColor: "#4caf50",
     allowOutsideClick: false,
@@ -32,9 +41,16 @@ export const showItemWonAlert = async (itemName: string) => {
 export const showWinnerAlert = async (
   participantName: string,
   itemName: string,
+  itemImage?: string | null,
 ) => {
   // Fire big fireworks for winner
   fireConfettiFireworks();
+
+  // Use item image if available, otherwise use default
+  const imageUrl =
+    itemImage && itemImage.startsWith("data:image")
+      ? itemImage
+      : "/img/ani-merry.gif";
 
   return MySwal.fire({
     title: "🎉 ผู้โชคดี 🎉",
@@ -52,9 +68,9 @@ export const showWinnerAlert = async (
       </div>
     `,
     // icon: "success",
-    imageUrl: "/img/ani-merry.gif",
-    imageWidth: 450,
-    imageHeight: 250,
+    imageUrl: imageUrl,
+    imageWidth: 300,
+    imageHeight: 200,
     confirmButtonText: "🎅 ตกลง 🎅",
     confirmButtonColor: "#c62828",
     allowOutsideClick: false,

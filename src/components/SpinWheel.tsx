@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useCallback } from "react";
+import { useEffect, useRef, useCallback, useState } from "react";
 import { Wheel } from "spin-wheel";
 import { Box } from "@mui/material";
 
@@ -41,6 +41,8 @@ export default function SpinWheel({
 }: SpinWheelProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const wheelRef = useRef<Wheel | null>(null);
+  const [savedRotation, setSavedRotation] = useState<number>(0);
+  const hasSpunRef = useRef<boolean>(false);
 
   // Prepare items with colors
   const preparedItems = items.map((item, index) => ({
@@ -52,6 +54,11 @@ export default function SpinWheel({
 
   const handleSpinEnd = useCallback(
     (event: { currentIndex: number }) => {
+      // Save the current rotation when spin ends
+      if (wheelRef.current) {
+        setSavedRotation(wheelRef.current.rotation);
+        hasSpunRef.current = true;
+      }
       if (onSpinEnd) {
         onSpinEnd(event.currentIndex);
       }
@@ -83,23 +90,28 @@ export default function SpinWheel({
       rotationSpeedMax: 500,
       rotationResistance: -70,
       lineWidth: 2,
-
       lineColor: "#fff",
       borderWidth: 3,
       borderColor: "#333",
       pointerAngle: 90,
       isInteractive: false,
       radius: 0.95,
+      rotation: hasSpunRef.current ? savedRotation : 0, // Use saved rotation if available
     });
 
     wheel.onRest = handleSpinEnd;
     wheelRef.current = wheel;
 
+    // Restore rotation after wheel is created
+    if (hasSpunRef.current) {
+      wheel.rotation = savedRotation;
+    }
+
     return () => {
       container.innerHTML = "";
       wheelRef.current = null;
     };
-  }, [preparedItems, handleSpinEnd]);
+  }, [preparedItems, handleSpinEnd, savedRotation]);
 
   useEffect(() => {
     if (

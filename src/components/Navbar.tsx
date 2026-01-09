@@ -22,7 +22,9 @@ import {
 import { FiMenu, FiHome, FiGift, FiUsers, FiClock } from "react-icons/fi";
 
 const navItems = [
-  { label: "หน้าหลัก", href: "/", icon: FiHome },
+  { label: "วงล้อมหาสนุก V1", href: "/", icon: FiHome },
+  { label: "วงล้อมหาสนุก V2", href: "/spin", icon: FiHome },
+  { label: "วงล้อมหาสนุก V3", href: "/spin2", icon: FiHome },
   { label: "จัดการของรางวัล", href: "/items", icon: FiGift },
   { label: "จัดการผู้เข้าร่วม", href: "/participants", icon: FiUsers },
   { label: "ประวัติการสุ่ม", href: "/history", icon: FiClock },
